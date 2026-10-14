@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
+<title>GramGPT - Менеджер аккаунтов</title><style>
+*{box-sizing:border-box;margin:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#fafaf9;color:#1c1917;font-size:13px}
+.wrap{display:flex;min-height:100vh}
+.side{width:224px;background:#fff;border-right:1px solid #e7e5e4;padding:14px 10px;flex-shrink:0}
+.logo{font-size:17px;padding:4px 8px 14px} .logo b{color:#0088cc} .ver{color:#a8a29e;font-size:10px;margin-left:6px}
+.grp{color:#a8a29e;font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin:12px 8px 6px}
+.mi{padding:7px 9px;border-radius:8px;color:#44403c;cursor:default;display:flex;align-items:center;gap:8px}
+.mi .ic{width:18px;text-align:center;opacity:.75}
+.mi.active{background:#eaf1fa;color:#0088cc;font-weight:600}
+.newpill{background:#dcfce7;color:#16a34a;font-size:9px;padding:1px 6px;border-radius:8px;margin-left:auto}
+.main{flex:1;padding:18px 22px;min-width:0}
+.head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.head h1{font-size:19px} .head .sub{color:#78716c;font-size:12px;margin-top:2px}
+.umenu{display:flex;gap:8px;align-items:center;color:#57534e}
+.umenu .ava{width:30px;height:30px;border-radius:50%;background:#0088cc;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.tags{display:grid;grid-template-columns:repeat(9,1fr);gap:8px;margin-bottom:14px}
+.tag{background:#fff;border:1px solid #e7e5e4;border-radius:10px;padding:9px 10px;display:flex;flex-direction:column;gap:2px}
+.tag b{font-size:17px} .tag span{color:#78716c;font-size:10.5px}
+.tag.ok b{color:#16a34a} .tag.work b{color:#0088cc} .tag.warn b{color:#d97706} .tag.bad b{color:#dc2626}
+.toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.toolbar button{background:#fff;border:1px solid #e7e5e4;border-radius:8px;padding:6px 11px;font-size:11.5px;color:#44403c;cursor:default}
+.toolbar button:hover{border-color:#0088cc;color:#0088cc}
+.cols{display:grid;grid-template-columns:1fr 380px;gap:14px;align-items:start}
+.card{background:#fff;border:1px solid #e7e5e4;border-radius:12px;padding:14px}
+.card h2{font-size:14px;margin-bottom:10px} .card h3{font-size:14px;margin-bottom:10px}
+.beta{background:#fef3c7;color:#b45309;font-size:9px;padding:2px 7px;border-radius:8px;vertical-align:middle}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th{color:#a8a29e;text-align:left;font-weight:500;padding:5px 8px;border-bottom:1px solid #e7e5e4;font-size:10.5px}
+td{padding:6px 8px;border-bottom:1px solid #f5f5f4}
+.mono{font-family:Consolas,monospace;font-size:10.5px;color:#57534e}
+.st{padding:2px 8px;border-radius:9px;font-size:10px}
+.s-ok{background:#dcfce7;color:#16a34a} .s-warn{background:#fef3c7;color:#b45309} .s-bad{background:#fee2e2;color:#dc2626}
+.tier{font-size:9px;padding:2px 7px;border-radius:8px;margin-left:5px}
+.t-excellent{background:#dcfce7;color:#16a34a} .t-good{background:#eaf1fa;color:#0088cc}
+.t-risky{background:#fef3c7;color:#b45309} .t-dead{background:#fee2e2;color:#dc2626}
+.ggr .ggr-flex{display:flex;gap:16px;align-items:center;margin-bottom:10px}
+.bigscore{font-size:42px;font-weight:800;color:#0088cc}
+.glabel{font-weight:600;font-size:12px;margin-top:6px} .gcaption{color:#78716c;font-size:11px}
+.shap td{padding:3px 6px} .sbar{width:130px;height:7px;background:#f5f5f4;border-radius:4px}
+.sbar i{display:block;height:7px;background:#0088cc;border-radius:4px}
+.foot-note{color:#a8a29e;font-size:10px;margin-top:8px}
+.ggrnum{color:#0088cc;font-weight:700}
+</style></head><body><div class="wrap">
+<div class="side"><div class="logo">⚡ <b>GramGPT</b><span class="ver">панель</span></div><div class="grp">Главная</div><div class="mi active"><span class="ic">▦</span>Менеджер аккаунтов</div><div class="mi"><span class="ic">◈</span>Маркетплейс <span class="newpill">Новое</span></div><div class="mi"><span class="ic">▤</span>Задачи</div><div class="mi"><span class="ic">▧</span>Моя статистика</div><div class="mi"><span class="ic">⛨</span>Поддержка</div><div class="grp">Модули</div><div class="mi"><span class="ic">💬</span>Нейрокомментинг</div><div class="mi"><span class="ic">🗨</span>Нейрочаттинг</div><div class="mi"><span class="ic">👍</span>Масс Реакции</div><div class="mi"><span class="ic">👁</span>Масслукинг</div><div class="mi"><span class="ic">➦</span>ЛС-Рассылки</div><div class="mi"><span class="ic">👥</span>Чат-Рассылки</div><div class="mi"><span class="ic">#</span>Масстегинг</div><div class="mi"><span class="ic">＋</span>Инвайтер</div><div class="mi"><span class="ic">🚀</span>НейроШиллинг</div><div class="mi"><span class="ic">🔥</span>Прогрев аккаунтов</div><div class="mi"><span class="ic">🗪</span>НейроДиалоги</div><div class="mi"><span class="ic">⚙</span>Pipeline Orchestrator</div><div class="mi"><span class="ic">★</span>GGR Проверка</div></div>
+<div class="main">
+<div class="head"><div><h1>Менеджер аккаунтов</h1><div class="sub">Управление вашими Telegram аккаунтами</div></div>
+<div class="umenu"><span>Мой аккаунт</span><span>·</span><span style="color:#0088cc">Купить подписку</span><div class="ava">R</div></div></div>
+<div class="tags"><div class="tag ok" title="Валидные аккаунты, готовые к запуску в модулях"><b>2326</b><span>Активные</span></div><div class="tag work" title="Аккаунты, прямо сейчас занятые в активных задачах"><b>184</b><span>В работе</span></div><div class="tag bad" title="Аккаунты с постоянным баном Telegram"><b>37</b><span>Забаненные</span></div><div class="tag bad" title="Аккаунты с ошибкой авторизации или недоступной сессией"><b>12</b><span>Невалидные</span></div><div class="tag warn" title="Аккаунты в состоянии мьюта"><b>8</b><span>Мут</span></div><div class="tag bad" title="Временный или постоянный спамблок от Telegram"><b>21</b><span>Спамблок</span></div><div class="tag warn" title="Аккаунты, замороженные платформой"><b>5</b><span>Замороженные</span></div><div class="tag warn" title="Аккаунты в локальном карантине после рискованных действий"><b>3</b><span>На карантине</span></div><div class="tag warn" title="Аккаунты, которым требуется повторный вход"><b>6</b><span>Реавторизация</span></div></div>
+<div class="toolbar"><button>Назначить прокси</button><button>Проверка прокси</button><button>Проверка спамблока</button><button>GGR проверка выбранных</button><button>Установка 2FA</button><button>ИИ профили</button><button>Сброс сессий</button><button>Настройка приватности</button><button>Экспорт</button></div>
+<div class="cols">
+<div class="card"><h2>Аккаунты <span style="color:#a8a29e;font-weight:400">· зарегистрированные · все</span></h2>
+<table><tr><th>Аккаунт</th><th>Страна</th><th>Зарегистрирован</th><th>Прокси</th><th>Статус</th><th>С 2FA</th><th>GGR Рейтинг</th><th>Потенциал</th><th>Себестоимость</th></tr>
+<tr><td>+119****7468</td><td>IN</td><td>64 дн назад</td><td class='mono'>socks5://…1614</td><td><span class='st s-ok'>Активен</span></td><td>выкл</td><td><b class='ggr'>7.4</b> <span class='tier t-fair'>FAIR</span></td><td>89% · 7 дн</td><td>$0.38</td></tr><tr><td>+108****4943</td><td>ID</td><td>120 дн назад</td><td class='mono'>socks5://…7499</td><td><span class='st s-ok'>Активен</span></td><td>вкл</td><td><b class='ggr'>7.3</b> <span class='tier t-fair'>FAIR</span></td><td>89% · 7 дн</td><td>$0.34</td></tr><tr><td>+105****3181</td><td>IN</td><td>17 дн назад</td><td class='mono'>socks5://…7101</td><td><span class='st s-warn'>Прогрев</span></td><td>вкл</td><td><b class='ggr'>7.7</b> <span class='tier t-good'>GOOD</span></td><td>89% · 7 дн</td><td>$0.39</td></tr><tr><td>+172****1976</td><td>TR</td><td>3 дн назад</td><td class='mono'>socks5://…6924</td><td><span class='st s-warn'>Прогрев</span></td><td>выкл</td><td><b class='ggr'>6.1</b> <span class='tier t-fair'>FAIR</span></td><td>89% · 7 дн</td><td>$0.57</td></tr><tr><td>+189****4999</td><td>VN</td><td>9 дн назад</td><td class='mono'>socks5://…2934</td><td><span class='st s-warn'>Прогрев</span></td><td>вкл</td><td><b class='ggr'>3.9</b> <span class='tier t-risky'>RISKY</span></td><td>39% · 7 дн</td><td>$0.76</td></tr><tr><td>+196****6604</td><td>NG</td><td>9 дн назад</td><td class='mono'>socks5://…6572</td><td><span class='st s-warn'>Прогрев</span></td><td>вкл</td><td><b class='ggr'>6.5</b> <span class='tier t-fair'>FAIR</span></td><td>89% · 7 дн</td><td>$0.93</td></tr><tr><td>+174****8474</td><td>BR</td><td>210 дн назад</td><td class='mono'>socks5://…8301</td><td><span class='st s-ok'>Активен</span></td><td>вкл</td><td><b class='ggr'>9.1</b> <span class='tier t-excellent'>EXCELLENT</span></td><td>89% · 7 дн</td><td>$0.56</td></tr><tr><td>+185****6685</td><td>IN</td><td>120 дн назад</td><td class='mono'>socks5://…5709</td><td><span class='st s-ok'>Активен</span></td><td>вкл</td><td><b class='ggr'>5.3</b> <span class='tier t-risky'>RISKY</span></td><td>39% · 7 дн</td><td>$0.42</td></tr><tr><td>+150****7405</td><td>PL</td><td>17 дн назад</td><td class='mono'>socks5://…5561</td><td><span class='st s-warn'>Прогрев</span></td><td>выкл</td><td><b class='ggr'>7.3</b> <span class='tier t-fair'>FAIR</span></td><td>89% · 7 дн</td><td>$0.94</td></tr><tr><td>+187****7233</td><td>TR</td><td>64 дн назад</td><td class='mono'>socks5://…3987</td><td><span class='st s-ok'>Активен</span></td><td>выкл</td><td><b class='ggr'>8.0</b> <span class='tier t-good'>GOOD</span></td><td>89% · 7 дн</td><td>$0.54</td></tr></table>
+<p class="foot-note">Экспорт даёт архив — можно продать (LZT / свои скрипты) или переимпортировать в панель через drag-and-drop.</p></div>
+<div class="card ggr">
+<h3>GGR — GramGPT Rating <span class="beta">БЕТА</span></h3>
+<div class="ggr-flex"><div class="bigscore">1.6<span class="tier t-dead">DEAD</span></div>
+<div><div class="glabel">Рейтинг · <span title="Шанс, что аккаунт проживёт ближайшие 7 дней, ×10">Доживут неделю</span></div>
+<div class="gcaption">≈27% таких аккаунтов доживают неделю</div>
+<div class="glabel">Потенциал · 27% · горизонт 7 дн</div>
+<div class="gcaption">Эта партия (71 акк.): смертей пока нет · burn=False</div>
+<div class="glabel">Почему такой балл</div>
+<div class="gcaption">Telegram морозит партиями: балл собран из того, что случилось с вашими партиями.</div></div></div>
+<table class="shap"><tr><th>фактор (SHAP)</th><th></th><th>вклад</th></tr><tr><td>vintage</td><td><div class='sbar'><i style='width:50%'></i></div></td><td>+2.01</td></tr><tr><td>identity</td><td><div class='sbar'><i style='width:8%'></i></div></td><td>+0.30</td></tr><tr><td>network</td><td><div class='sbar'><i style='width:22%'></i></div></td><td>+0.90</td></tr><tr><td>behavioural</td><td><div class='sbar'><i style='width:10%'></i></div></td><td>+0.40</td></tr><tr><td>spamblock_history</td><td><div class='sbar'><i style='width:0%'></i></div></td><td>+0.00</td></tr><tr><td>restoration</td><td><div class='sbar'><i style='width:0%'></i></div></td><td>+0.00</td></tr><tr><td>provenance</td><td><div class='sbar'><i style='width:86% ;background:#dc2626'></i></div></td><td>-3.44</td></tr></table>
+<p class="foot-note">модель: engine local-clone · авто-2026-10-13 · n когорты 6505</p></div>
+</div></div></div></body></html>
