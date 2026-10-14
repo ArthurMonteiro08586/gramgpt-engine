@@ -43,6 +43,19 @@ COLD_ACCOUNT_DAYS = 14           # logs.cold_accounts: <14 days activity = low f
 SCENARIO_STEPS = 24              # 24-step scenario per target (frontend simulator)
 SCENARIO_PAUSE = (20, 70)        # seconds between steps
 PACE_PRESETS = {"calm": 15.0, "live": 8.0, "hot": 4.0}   # chat pace, sec between replicas
+
+# --- Warming module settings (confirmed by real panel screenshots 2026-10-14) ---
+WARMING_WINDOW = {"start_hour": 9, "end_hour": 24, "tz": "Europe/Moscow", "utc_offset": 3}
+WARMING_INTENSITY = {
+    "cautious":    {"days": (0, 7),   "label": "Осторожный — для новых аккаунтов, 0-7 дней"},
+    "normal":      {"days": (7, 30),  "label": "Нормальный — для прогретых аккаунтов, 7-30 дней"},
+    "aggressive":  {"days": (30, None), "label": "Агрессивный — для старых аккаунтов, >30 дней"},
+}
+WARMING_AUTO_ADAPT = True   # «Автоадаптация по стадии аккаунта» toggle — default ON
+# Neurocommenting distributed mode: worker threads tagged T1..T10 in the live log console
+NEURO_THREAD_TAGS = [f"T{i}" for i in range(1, 11)]
+NEURO_PROFILES = ["сбалансированный", "осторожный", "агрессивный"]   # ИИ Защита levels
+NEURO_ACCEPT_PROBABILITY = 70   # «принят в работу (вероятность 70)» from live logs
 SERIES_LEN_SEC = 40              # burst series length (est.)
 ACTIVITY_CURVE_MAX = 19.0        # evening vs night ratio up to 19x (docs even_pace_hint)
 REVIVAL_TEMPO = {"fast": 4, "normal": 8, "slow": 15}     # revival tempo sec (frontend sim)
