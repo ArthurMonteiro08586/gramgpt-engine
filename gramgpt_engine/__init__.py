@@ -18,9 +18,10 @@ from .spam_pm import PmTask, PaceLimiter, chain_plan, claim_target, day_plan  # 
 from .ggr import AccountSignals, score_account, lot_verdict  # noqa: F401
 from .account_op import Engine, validate as account_op_validate  # noqa: F401
 from .client import GramGPTClient  # noqa: F401
+from . import modules as M  # noqa: F401
 
-__version__ = "1.0.0"
-__all__ = ["C", "Account", "Engine", "GramGPTClient", "PmTask", "Persona",
+__version__ = "1.1.0"
+__all__ = ["C", "M", "Account", "Engine", "GramGPTClient", "PmTask", "Persona",
            "ShillingTask", "QuarantineManager", "PoolRotator", "DailyLimits",
            "AccountSignals", "score_account", "lot_verdict", "build_scenario",
            "plan_day", "day_plan", "chain_plan", "claim_target", "gate",
