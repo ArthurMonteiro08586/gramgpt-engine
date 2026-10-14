@@ -1,0 +1,2 @@
+# stdlib-only — no dependencies required for the engine itself.
+# Optional: pip install gramgpt-engine[client] style extras not needed.
