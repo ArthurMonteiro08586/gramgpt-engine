@@ -63,7 +63,7 @@ Engine(transport=transport).run("check", [1, 2, 3])
 - Every constant traces to a public artifact (log template, doc key, OpenAPI field, frontend simulator, or live API response). Values marked `(est.)` in `constants.py` are inferred, not literal.
 - GGR local scorer reproduces the response *shape* and monotonic behaviour; exact scores differ from their ML model (weights not public).
 - Server-side Django implementation is not reproduced — it isn't public.
-- Companion repo with the raw reverse-engineering artifacts (OpenAPI map, module contracts, RU locale extracts): [`PieceBuntingWar/gramgpt-reverse-kit`](https://github.com/PieceBuntingWar/gramgpt-reverse-kit).
+- Companion repo with the raw reverse-engineering artifacts (OpenAPI map, module contracts, RU locale extracts): [`gbonnet65923/gramgpt-reverse-kit`](https://github.com/gbonnet65923/gramgpt-reverse-kit).
 
 ## License
 
