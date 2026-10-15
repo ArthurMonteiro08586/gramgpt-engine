@@ -8,3 +8,8 @@ dist/
 build/
 .pytest_cache/
 .DS_Store
+*.db
+*.db-wal
+*.db-shm
+_demo_token.txt
+server.log

@@ -27,10 +27,33 @@
 | `account_op.py` | Dispatcher for `launch_account_op` (appeal_spamblock, check, generate_profiles, privacy, reauthorize, reset_sessions, set_2fa, …) with OpenAPI validation; plug any transport |
 | `client.py` | Thin client for the real GramGPT API (`ggk_live_*` Bearer, Idempotency-Key, all launch endpoints) |
 
+## Full backend clone (`gramgpt_server/`)
+
+A **runnable stdlib-only clone of the entire public API surface** — all 101 routes from their OpenAPI spec, wired to the engine above:
+
+| File | What it is |
+|---|---|
+| `routes_spec.json` | 101 routes generated verbatim from their `openapi.json` (92 paths, methods, tags) |
+| `app.py` | ThreadingHTTPServer router: spec-exact matching (404 unknown, 405 wrong method), Bearer auth gate, CORS, serves `/panel` + `/api/v1/openapi.json` |
+| `store.py` | SQLite persistence: users, accounts, tasks, task_logs, photos, prompts, proxies, blacklists, history, webhooks, exports |
+| `auth.py` | `ggk_live_*` Bearer issuance/validation (clone-local; real keys come from Tribute/Stripe) |
+| `worker.py` | Task lifecycle `waiting→running→completed/failed/cancelled`, `queue_if_busy` (re-check every minute, 24h `queue_timeout`), RU log rendering from their real 2222-template bank |
+| `handlers.py` | Business logic for all 101 routes; 422 validation shape `{"detail":[{"loc":…}]}` like FastAPI; envelope for all 13 `launch_*` endpoints (account_ids, dry_run, skip_unavailable, queue_if_busy, strict_config); GGR via engine scorer |
+
+```bash
+python examples/run_server.py --port 8770 --db gg.db   # prints demo token
+python examples/build_panel_live.py                    # rebuild /panel UI
+python examples/shot_live.py _demo_token.txt proof.png # live screenshot
+```
+
+`/panel` is a **live** Task-Monitor UI built on their real component CSS (`task-monitor.BVhk1W4S.css` verbatim, data-v stripped) and driven by `fetch()` against the clone API — tasks, streaming logs, head-stats all real data from the worker.
+
+E2E proof (11 server tests): launch → worker executes 40 steps → 23 RU logs → `completed`, counters/results exact.
+
 ## Quick start
 
 ```bash
-python -m unittest discover -s tests -v   # 25 tests
+python -m unittest discover -s tests -v   # 56 tests (24 engine + 21 modules + 11 server e2e)
 python examples/demo_day.py               # simulated engine day
 ```
 

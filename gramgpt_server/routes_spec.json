@@ -1,0 +1,4078 @@
+[
+ {
+  "method": "GET",
+  "path": "/api/v1/accounts/",
+  "tag": "accounts",
+  "summary": "",
+  "params": [
+   {
+    "name": "deleted",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "boolean"
+    }
+   },
+   {
+    "name": "geo",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "ids",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "ordering",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "page_size",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "project",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "role",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "search",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "spamblock",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string",
+     "x-spec-enum-id": "c26460c49fd8befe",
+     "title": "Спамблок",
+     "enum": [
+      "appealing",
+      "clear",
+      "eternal",
+      "temporary",
+      "unknown"
+     ]
+    }
+   },
+   {
+    "name": "status",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string",
+     "x-spec-enum-id": "63dc714eaff8f8f8",
+     "title": "Статус аккаунта",
+     "enum": [
+      "awaiting_proxy",
+      "banned",
+      "checking",
+      "connection_failed",
+      "conversion_failed",
+      "converted",
+      "converting",
+      "deactivated",
+      "duplicate",
+      "frozen",
+      "invalid",
+      "muted",
+      "needs_reauth",
+      "passcode_required",
+      "phone_number_invalid",
+      "quarantine",
+      "session_expired",
+      "session_file_error",
+      "session_revoked",
+      "spamblock",
+      "unauthorized",
+      "unchecked",
+      "valid"
+     ]
+    }
+   },
+   {
+    "name": "updated_since",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/accounts/auth/cancel/",
+  "tag": "accounts",
+  "summary": "Abandon a pending login",
+  "params": [],
+  "body": {
+   "type": "object",
+   "properties": {
+    "session_id": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "session_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/accounts/auth/start/",
+  "tag": "accounts",
+  "summary": "Send a login code to a phone number",
+  "params": [],
+  "body": {
+   "type": "object",
+   "properties": {
+    "phone": {
+     "type": "string",
+     "example": "+15551234567"
+    },
+    "proxy": {
+     "type": "string",
+     "example": "socks5://user:pass@host:1080",
+     "description": "Proxy string or object. Required."
+    }
+   },
+   "required": [
+    "phone",
+    "proxy"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/accounts/auth/verify/",
+  "tag": "accounts",
+  "summary": "Confirm the login code (and 2FA password)",
+  "params": [],
+  "body": {
+   "type": "object",
+   "properties": {
+    "session_id": {
+     "type": "string"
+    },
+    "code": {
+     "type": "string",
+     "example": "12345"
+    },
+    "password": {
+     "type": "string",
+     "description": "2FA password, when the number has one."
+    }
+   },
+   "required": [
+    "session_id",
+    "code"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/accounts/import-tdata/",
+  "tag": "accounts",
+  "summary": "",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/accounts/sessions/export/",
+  "tag": "accounts",
+  "summary": "Start a session/tdata export",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/accounts/sessions/export/{export_id}/",
+  "tag": "accounts",
+  "summary": "Poll an export and get its download URL",
+  "params": [
+   {
+    "name": "export_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/accounts/{id}/",
+  "tag": "accounts",
+  "summary": "",
+  "params": [
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "integer"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/accounts/{id}/ggr/",
+  "tag": "accounts",
+  "summary": "",
+  "params": [
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "integer"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/blacklists/",
+  "tag": "blacklists",
+  "summary": "List the available blocklists",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/blacklists/{kind}/",
+  "tag": "blacklists",
+  "summary": "Read, add or remove blocklist entries",
+  "params": [
+   {
+    "name": "kind",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/blacklists/{kind}/",
+  "tag": "blacklists",
+  "summary": "Read, add or remove blocklist entries",
+  "params": [
+   {
+    "name": "kind",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/v1/blacklists/{kind}/",
+  "tag": "blacklists",
+  "summary": "Read, add or remove blocklist entries",
+  "params": [
+   {
+    "name": "kind",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/changelog/",
+  "tag": "meta",
+  "summary": "What changed in this API, newest first",
+  "params": [
+   {
+    "name": "fmt",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/history/",
+  "tag": "history",
+  "summary": "List exportable activity histories",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/history/{module}/",
+  "tag": "history",
+  "summary": "Export one module's activity history",
+  "params": [
+   {
+    "name": "account_ids",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "ai_generated",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "columns",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "date_from",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "date_to",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "delimiter",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "describe",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "emoji",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "external_id",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "fmt",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "kind",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "lang",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "module",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string",
+     "enum": [
+      "dm-spammer",
+      "group-spammer",
+      "mass-react",
+      "neuro-chatting",
+      "neuro-commenting",
+      "neuro-dialogs",
+      "neuro-shilling",
+      "story-views"
+     ]
+    }
+   },
+   {
+    "name": "search",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "send_mode",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "status",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "success",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "tag",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "task_id",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "visibility_status",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/me/",
+  "tag": "me",
+  "summary": "",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/media/",
+  "tag": "media",
+  "summary": "Upload a file for send_media / broadcast chain",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/photos/",
+  "tag": "photos",
+  "summary": "",
+  "params": [
+   {
+    "name": "ordering",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "search",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/photos/",
+  "tag": "photos",
+  "summary": "",
+  "params": [],
+  "body": {
+   "$ref": "#/components/schemas/LibraryPhoto"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/photos/bulk-delete/",
+  "tag": "photos",
+  "summary": "",
+  "params": [],
+  "body": {
+   "$ref": "#/components/schemas/LibraryPhoto"
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/photos/bulk-update/",
+  "tag": "photos",
+  "summary": "",
+  "params": [],
+  "body": {
+   "$ref": "#/components/schemas/LibraryPhoto"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/photos/quota/",
+  "tag": "photos",
+  "summary": "",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/photos/random/",
+  "tag": "photos",
+  "summary": "",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/photos/{id}/",
+  "tag": "photos",
+  "summary": "",
+  "params": [
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/v1/photos/{id}/",
+  "tag": "photos",
+  "summary": "",
+  "params": [
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/photos/{id}/use/",
+  "tag": "photos",
+  "summary": "",
+  "params": [
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "$ref": "#/components/schemas/LibraryPhoto"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/projects/",
+  "tag": "accounts",
+  "summary": "List your account projects",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/prompts/",
+  "tag": "prompts",
+  "summary": "",
+  "params": [
+   {
+    "name": "ordering",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "page_size",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "search",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/prompts/",
+  "tag": "prompts",
+  "summary": "",
+  "params": [],
+  "body": {
+   "$ref": "#/components/schemas/_Prompt"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/prompts/{id}/",
+  "tag": "prompts",
+  "summary": "",
+  "params": [
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "integer"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "PATCH",
+  "path": "/api/v1/prompts/{id}/",
+  "tag": "prompts",
+  "summary": "",
+  "params": [
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "integer"
+    }
+   }
+  ],
+  "body": {
+   "$ref": "#/components/schemas/Patched_Prompt"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/proxies/",
+  "tag": "proxies",
+  "summary": "List the proxies attached to your accounts",
+  "params": [
+   {
+    "name": "updated_since",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/proxies/attach/",
+  "tag": "proxies",
+  "summary": "Create proxies and attach them to accounts",
+  "params": [
+   {
+    "name": "—",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/proxies/check/",
+  "tag": "proxies",
+  "summary": "Re-check proxies now instead of waiting for the schedule",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/proxies/detach/",
+  "tag": "proxies",
+  "summary": "Detach proxies from accounts",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/roles/",
+  "tag": "accounts",
+  "summary": "List your account roles",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/stats/accounts/",
+  "tag": "stats",
+  "summary": "Fleet summary: how many accounts, in what state",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/stats/activity/",
+  "tag": "stats",
+  "summary": "Per-day action counters, optionally per module",
+  "params": [
+   {
+    "name": "account_id",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "days",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "script_name",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "tag",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "task_id",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/tasks/",
+  "tag": "tasks",
+  "summary": "List the caller's tasks",
+  "params": [
+   {
+    "name": "account_id",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "active",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "boolean"
+    }
+   },
+   {
+    "name": "external_id",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "ids",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "ordering",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "page_size",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "script_name",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "search",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "status",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string",
+     "x-spec-enum-id": "82943591300b9b98",
+     "title": "Статус",
+     "enum": [
+      "cancelled",
+      "completed",
+      "failed",
+      "queued",
+      "running"
+     ]
+    }
+   },
+   {
+    "name": "tag",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "updated_since",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/tasks/{task_id}/",
+  "tag": "tasks",
+  "summary": "",
+  "params": [
+   {
+    "name": "task_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string",
+     "format": "uuid"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/tasks/{task_id}/logs/",
+  "tag": "tasks",
+  "summary": "Read a task's live log journal",
+  "params": [
+   {
+    "name": "after",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "limit",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "task_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string",
+     "format": "uuid"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/tasks/{task_id}/results/",
+  "tag": "tasks",
+  "summary": "Download a parsing task's full result set",
+  "params": [
+   {
+    "name": "fmt",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "item_type",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "task_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string",
+     "format": "uuid"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/tools/",
+  "tag": "tools",
+  "summary": "",
+  "params": [],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/add_targets/",
+  "tag": "tools",
+  "summary": "Add targets to a running DM/group broadcast.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "task_id": {
+     "type": "string",
+     "description": "Task id from the launch response."
+    },
+    "targets": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "maxItems": 5000,
+     "description": "@username, phone, link or id — same forms as at launch."
+    }
+   },
+   "required": [
+    "task_id",
+    "targets"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/block_peer/",
+  "tag": "tools",
+  "summary": "Block `peer` from `account_id`, or unblock with `unblock: true`. Does not touch the dialog itself.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "unblock": {
+     "type": "boolean",
+     "default": false
+    }
+   },
+   "required": [
+    "account_id",
+    "peer"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/cancel_task/",
+  "tag": "tools",
+  "summary": "Cancel a ScriptTask. Idempotent.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "task_id": {
+     "type": "string"
+    },
+    "force": {
+     "type": "boolean",
+     "default": false,
+     "description": "Cancel a running task outright (no ack wait)."
+    }
+   },
+   "required": [
+    "task_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/check_account_ggr/",
+  "tag": "tools",
+  "summary": "Run GGR ondemand check on an account. Returns risk score, tier, lifespan-median, top SHAP factors, use-case recommendation.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    }
+   },
+   "required": [
+    "account_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/check_balance/",
+  "tag": "tools",
+  "summary": "Read your token wallet balance and active-subscription status (with expiry).",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {}
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/delete_accounts/",
+  "tag": "tools",
+  "summary": "Move accounts to the trash, like Delete in the panel: they leave /accounts/ and free their slots; purged after 2 days unless restored. Requires confirm: true.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "maxItems": 1000
+    },
+    "confirm": {
+     "type": "boolean",
+     "description": "Must be true — guards against a stray call."
+    }
+   },
+   "required": [
+    "account_ids",
+    "confirm"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/delete_dialog/",
+  "tag": "tools",
+  "summary": "Delete the DM dialog with `peer` from `account_id`'s chat list; `revoke` also wipes it for the other side.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "revoke": {
+     "type": "boolean",
+     "default": false,
+     "description": "Also wipe the history for the other party."
+    }
+   },
+   "required": [
+    "account_id",
+    "peer"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/delete_messages/",
+  "tag": "tools",
+  "summary": "Delete our own messages in the DM (up to 100); others' ids are skipped.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "message_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "maxItems": 100
+    },
+    "revoke": {
+     "type": "boolean",
+     "default": true
+    }
+   },
+   "required": [
+    "account_id",
+    "peer",
+    "message_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/edit_message/",
+  "tag": "tools",
+  "summary": "Edit the text of our own message in the DM.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "message_id": {
+     "type": "integer"
+    },
+    "text": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 4096
+    },
+    "parse_mode": {
+     "type": "string",
+     "enum": [
+      "markdown",
+      "html",
+      "none"
+     ]
+    }
+   },
+   "required": [
+    "account_id",
+    "peer",
+    "message_id",
+    "text"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/get_account_detail/",
+  "tag": "tools",
+  "summary": "Get one of your Telegram accounts by id (status, spamblock, geo, proxy, timestamps).",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    }
+   },
+   "required": [
+    "account_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/get_dialog/",
+  "tag": "tools",
+  "summary": "Read one DM conversation: up to `limit` messages newest-first, older pages via `before_id`, optional `mark_read`. Attachments carry `media_type`/`duration`/`file_name`/`mime_type`/`size`, our messages `read`.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "limit": {
+     "type": "integer",
+     "default": 50,
+     "minimum": 1,
+     "maximum": 200
+    },
+    "before_id": {
+     "type": "integer",
+     "description": "Return messages older than this id (pagination)."
+    },
+    "mark_read": {
+     "type": "boolean",
+     "default": false
+    }
+   },
+   "required": [
+    "account_id",
+    "peer"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/get_media/",
+  "tag": "tools",
+  "summary": "Download a message attachment as a signed 10-min `url` (+ type, duration, size); voice/video notes get Telegram's `transcript` when available.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "message_id": {
+     "type": "integer"
+    },
+    "transcribe": {
+     "type": "boolean",
+     "default": true
+    }
+   },
+   "required": [
+    "account_id",
+    "peer",
+    "message_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/get_peer/",
+  "tag": "tools",
+  "summary": "Profile of a user: names, username, about, premium, stories, birthday, status, personal channel, small photo as a signed `photo_url`.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "with_photo": {
+     "type": "boolean",
+     "default": true
+    }
+   },
+   "required": [
+    "account_id",
+    "peer"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/get_stories/",
+  "tag": "tools",
+  "summary": "Active stories of a peer (id, date, type, caption). Does not mark them viewed.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    }
+   },
+   "required": [
+    "account_id",
+    "peer"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/get_task_progress/",
+  "tag": "tools",
+  "summary": "Read current status + result snapshot of a ScriptTask.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "task_id": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "task_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/import_accounts/",
+  "tag": "tools",
+  "summary": "Import Telegram accounts from Telethon StringSessions (bulk, up to 200). Pass a proxy per account to auto-verify. For tdata, use POST /api/v1/accounts/import-tdata/ (multipart).",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "accounts": {
+     "type": "array",
+     "minItems": 1,
+     "maxItems": 200,
+     "items": {
+      "type": "object",
+      "properties": {
+       "session_string": {
+        "type": "string",
+        "description": "Telethon StringSession."
+       },
+       "proxy": {
+        "type": "string",
+        "description": "socks5://user:pass@host:port — required for auto-verification."
+       },
+       "twofa_password": {
+        "type": "string",
+        "description": "Account 2FA password, if set."
+       },
+       "phone": {
+        "type": "string",
+        "description": "E.164 phone; used for geo detection."
+       }
+      },
+      "required": [
+       "session_string"
+      ]
+     }
+    }
+   },
+   "required": [
+    "accounts"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_account_op/",
+  "tag": "tools",
+  "summary": "Run a bulk account operation: check, check_spamblock, reauthorize, generate_profiles, appeal_spamblock, set_2fa, reset_sessions (needs confirm: true), privacy, leave_chats.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "op": {
+     "type": "string",
+     "enum": [
+      "appeal_spamblock",
+      "check",
+      "check_spamblock",
+      "generate_profiles",
+      "leave_chats",
+      "privacy",
+      "reauthorize",
+      "reset_sessions",
+      "set_2fa"
+     ],
+     "description": "Which operation to run."
+    },
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "description": "Accounts to operate on. Must belong to the caller."
+    },
+    "config": {
+     "type": "object",
+     "description": "Operation config. generate_profiles takes the same keys as the panel: settings, generate_name, generate_photo, photo_source, photo_category, photo_gender, omit_last_name, safe_mode, apply_to_telegram, generation_prompt, generate_username. To set EXACT usernames pass username_pool: [\"name1\", \"name2\"] — handed out to account_ids in order, one each. Names and bios take the same pools: name_pool: [{\"first_name\": \"...\", \"last_name\": \"...\"}] (or custom_first_name/custom_last_name for all), bio_pool: [\"...\"] (or custom_bio for all). Own avatars: photo_source: \"upload\" + generate_photo: true + custom_photo_pool_base64: [\"data:image/jpeg;base64,...\"] (custom_photo_base64 for a single one). Or use the photo library with photo_source: \"library\" + photo_category / photo_gender. Pool order is sequential for usernames and bios, random for names and photos — pass <pool>_distribution: \"sequential\" to change it. per_account_plan: {\"<account_id>\": {\"name_override\": {\"first_name\": \"...\", \"last_name\": \"...\"}, \"bio_override\": \"...\"}} still works for explicit per-account values. appeal_spamblock REQUIRES appeal_text (30..2000 chars) — the free-form text @SpamBot's supervisor reads. The check ops need nothing. set_2fa: {password (>= 8 chars) | auto_generate: true (unique password per account, returned ONCE in generated_passwords), hint, current_password} — with current_password it CHANGES an existing password, without it sets one on accounts that have none (others are skipped). privacy: {settings: {\"last_seen\" | \"phone_number\" | \"profile_photo\" | \"forwards\" | \"calls\" | \"groups\" | \"voice_messages\": \"everyone\" | \"contacts_only\" | \"nobody\", \"mute_notifications\": \"on\" | \"off\"}}. leave_chats: {leave_type: \"groups\" | \"channels\" | \"folders\", delay_min, delay_max (seconds between leaves)} — leaves ALL chats of that type, not only the ones joined by tasks. reset_sessions needs no config but top-level confirm: true."
+    },
+    "max_concurrent": {
+     "type": "integer",
+     "minimum": 1,
+     "description": "Accounts processed at once (worker default if omitted)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    },
+    "confirm": {
+     "type": "boolean",
+     "description": "Required (true) for reset_sessions. WARNING: on fresh accounts imported from tdata, terminating the other sessions kills our own session too (measured: ~12% of such accounts died with 1-2 foreign sessions present)."
+    }
+   },
+   "required": [
+    "op",
+    "account_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_bulk_join/",
+  "tag": "tools",
+  "summary": "Join a list of channels/chats with the given accounts. Optionally collects them into a folder.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "description": "Accounts to run with. Must belong to the caller."
+    },
+    "channels": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "Channels/chats to join."
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    },
+    "config": {
+     "type": "object",
+     "description": "Module config. Knobs: channels, delay_min / delay_max, distribution, per_account_count, shuffle_channels (random split and join order), create_folder, folder_name."
+    }
+   },
+   "required": [
+    "account_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_check_numbers/",
+  "tag": "tools",
+  "summary": "Check which phone numbers have a Telegram account — feeds the DM broadcaster.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "description": "Accounts to run with. Must belong to the caller."
+    },
+    "targets": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "Phone numbers to check."
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    },
+    "config": {
+     "type": "object",
+     "description": "Module config. Knobs: targets, inter_delay_min / inter_delay_max, export_format."
+    }
+   },
+   "required": [
+    "account_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_group_spammer/",
+  "tag": "tools",
+  "summary": "Launch the group broadcaster: post a message chain into chats, by target list or folder links.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "description": "Accounts to run with. Must belong to the caller."
+    },
+    "targets": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "Chats to post in (@username, link or id)."
+    },
+    "chain": {
+     "type": "array",
+     "items": {
+      "type": "object"
+     },
+     "description": "Message items sent in order."
+    },
+    "folder_links": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "Telegram folder invite links to take chats from."
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    },
+    "config": {
+     "type": "object",
+     "description": "Module config. Same shape as the DM broadcaster: `chain` of message items plus targets (or `folder_links` to pull chats from a folder). Also honours accountProtectionEnabled / accountProtectionLevel and the schedule keys (start_at, stop_at, active hours, days_of_week).",
+     "properties": {
+      "accountProtectionEnabled": {
+       "type": "boolean",
+       "description": "Enable AI Account Protection (requires the paid module)."
+      },
+      "accountProtectionLevel": {
+       "type": "string",
+       "enum": [
+        "careful",
+        "balanced",
+        "aggressive"
+       ],
+       "description": "Protection level; defaults to balanced."
+      },
+      "min_delay_seconds": {
+       "type": "integer",
+       "description": "Min pause between targets, seconds (default 30)."
+      },
+      "max_delay_seconds": {
+       "type": "integer",
+       "description": "Max pause between targets, seconds (default 90)."
+      },
+      "unwarmed_pace_factor": {
+       "type": "number",
+       "description": "Auto-throttle for accounts younger than 14 days: the pause between targets is multiplied by this (default 2.0). Pass 1 to disable it and keep the delays exactly as given."
+      },
+      "start_at": {
+       "type": "string",
+       "description": "ISO-8601: the task waits until then before the first send."
+      },
+      "stop_at": {
+       "type": "string",
+       "description": "ISO-8601: no new targets after it; the task ends."
+      },
+      "active_hours_start": {
+       "type": "integer",
+       "description": "Working window start hour 0-23 (with active_hours_end)."
+      },
+      "active_hours_end": {
+       "type": "integer",
+       "description": "Working window end hour 1-24, exclusive; 22→6 = overnight."
+      },
+      "days_of_week": {
+       "type": "array",
+       "items": {
+        "type": "integer"
+       },
+       "description": "ISO weekdays to work on: 1=Mon … 7=Sun."
+      },
+      "timezone": {
+       "type": "string",
+       "description": "IANA timezone of the schedule and of the daily plan (default Europe/Moscow)."
+      }
+     }
+    }
+   },
+   "required": [
+    "account_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_mass_looking/",
+  "tag": "tools",
+  "summary": "Launch MassLooking: view (and optionally like) targets' stories. Honours accountProtectionEnabled / accountProtectionLevel inside config.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "description": "Accounts to run with. Must belong to the caller."
+    },
+    "peers": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "Users/chats whose stories to view."
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    },
+    "config": {
+     "type": "object",
+     "description": "Module config. Knobs: peers, delay_min / delay_max, max_stories_per_peer, max_total_views, like_enabled, like_probability, accountProtectionEnabled / accountProtectionLevel.",
+     "properties": {
+      "accountProtectionEnabled": {
+       "type": "boolean",
+       "description": "Enable AI Account Protection (requires the paid module)."
+      },
+      "accountProtectionLevel": {
+       "type": "string",
+       "enum": [
+        "careful",
+        "balanced",
+        "aggressive"
+       ],
+       "description": "Protection level; defaults to balanced."
+      }
+     }
+    }
+   },
+   "required": [
+    "account_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_mass_react/",
+  "tag": "tools",
+  "summary": "Launch MassReact module: accounts react to recent posts in target channels.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1
+    },
+    "channels": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1
+    },
+    "reactions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "config": {
+     "type": "object",
+     "description": "Optional module tuning; extra module keys are accepted.",
+     "properties": {
+      "min_delay_seconds": {
+       "type": "integer",
+       "minimum": 0,
+       "default": 15,
+       "description": "Min seconds between reactions per account."
+      },
+      "max_delay_seconds": {
+       "type": "integer",
+       "minimum": 0,
+       "default": 60,
+       "description": "Max seconds between reactions per account."
+      }
+     }
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    }
+   },
+   "required": [
+    "account_ids",
+    "channels"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_neuro_chatting/",
+  "tag": "tools",
+  "summary": "Launch NeuroChatting module: accounts hold conversations in target chats. Heavier than NeuroCommenting.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1
+    },
+    "chats": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1
+    },
+    "config": {
+     "type": "object",
+     "description": "Optional module tuning; extra module keys are accepted.",
+     "properties": {
+      "min_delay_seconds": {
+       "type": "integer",
+       "minimum": 0,
+       "default": 30,
+       "description": "Min seconds between messages per account."
+      },
+      "max_delay_seconds": {
+       "type": "integer",
+       "minimum": 0,
+       "default": 120,
+       "description": "Max seconds between messages per account."
+      },
+      "work_mode": {
+       "type": "string",
+       "enum": [
+        "count",
+        "time"
+       ],
+       "default": "count",
+       "description": "'count' stops after max_messages sent (or cancel_task); 'time' stops after duration_minutes."
+      },
+      "duration_minutes": {
+       "type": "integer",
+       "minimum": 1,
+       "default": 60,
+       "description": "Session length; applies only with work_mode='time'."
+      },
+      "reaction_mode": {
+       "type": "string",
+       "enum": [
+        "interval",
+        "keywords"
+       ],
+       "default": "interval",
+       "description": "'interval' replies by reply_probability; 'keywords' needs a `keywords` list."
+      },
+      "reply_probability": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 1,
+       "default": 1.0,
+       "description": "Share of messages to reply to in reaction_mode='interval'."
+      },
+      "keywords": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       },
+       "description": "Substrings to match against incoming messages when reaction_mode='keywords'."
+      },
+      "keyword_alert_only": {
+       "type": "boolean",
+       "default": false,
+       "description": "reaction_mode='keywords' only: on a match, fire a `keyword.matched` webhook (see /api/v1/webhooks/) instead of generating and sending an AI reply."
+      }
+     }
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    }
+   },
+   "required": [
+    "account_ids",
+    "chats"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_neuro_commenting/",
+  "tag": "tools",
+  "summary": "Launch NeuroCommenting module on accounts targeting channels. Returns task_id; poll via get_task_progress.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1
+    },
+    "channels": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1
+    },
+    "config": {
+     "type": "object",
+     "description": "Optional module tuning; extra module keys are accepted.",
+     "properties": {
+      "min_delay_seconds": {
+       "type": "integer",
+       "minimum": 0,
+       "default": 30,
+       "description": "Min seconds between comments per account."
+      },
+      "max_delay_seconds": {
+       "type": "integer",
+       "minimum": 0,
+       "default": 120,
+       "description": "Max seconds between comments per account."
+      },
+      "work_mode": {
+       "type": "string",
+       "default": "count",
+       "description": "'count' stops after N comments; 'time' runs for duration_minutes."
+      },
+      "duration_minutes": {
+       "type": "integer",
+       "minimum": 1,
+       "default": 60,
+       "description": "Run length when work_mode='time'."
+      },
+      "comment_mode": {
+       "type": "string",
+       "enum": [
+        "all",
+        "random",
+        "keywords"
+       ],
+       "default": "all",
+       "description": "'all' comments under every new post; 'random' samples by comment_probability; 'keywords' needs a `keywords` list."
+      },
+      "comment_probability": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 1,
+       "description": "Share of posts to comment on. Required when comment_mode='random'."
+      },
+      "post_source": {
+       "type": "string",
+       "enum": [
+        "new",
+        "existing",
+        "both"
+       ],
+       "default": "new",
+       "description": "'new' monitors posts published after start; 'existing' comments the last existing_posts_count posts per channel, then finishes; 'both' does that catch-up, then keeps monitoring. Posts the account already commented are skipped."
+      },
+      "existing_posts_count": {
+       "type": "integer",
+       "minimum": 1,
+       "maximum": 100,
+       "default": 10,
+       "description": "Recent posts per channel for post_source 'existing'/'both'."
+      }
+     }
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    }
+   },
+   "required": [
+    "account_ids",
+    "channels"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_neuro_dialogs/",
+  "tag": "tools",
+  "summary": "Launch NeuroDialogs: accounts keep AI conversations going in their own DMs. Honours accountProtectionEnabled / accountProtectionLevel inside config.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "description": "Accounts to run with. Must belong to the caller."
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    },
+    "config": {
+     "type": "object",
+     "description": "Module config. Knobs: ai_enabled, ai_prompt_id, language_mode, work_mode (count|time), max_messages, duration_minutes, min_reply_delay / max_reply_delay, active_hours_start / _end, accountProtectionEnabled / accountProtectionLevel.",
+     "properties": {
+      "accountProtectionEnabled": {
+       "type": "boolean",
+       "description": "Enable AI Account Protection (requires the paid module)."
+      },
+      "accountProtectionLevel": {
+       "type": "string",
+       "enum": [
+        "careful",
+        "balanced",
+        "aggressive"
+       ],
+       "description": "Protection level; defaults to balanced."
+      }
+     }
+    }
+   },
+   "required": [
+    "account_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_neuro_shilling/",
+  "tag": "tools",
+  "summary": "Launch NeuroShilling: accounts hold a scripted promo dialogue in target chats.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "description": "Accounts to run with. Must belong to the caller."
+    },
+    "targets": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1,
+     "description": "Chats to shill in (@username, link or id)."
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    },
+    "config": {
+     "type": "object",
+     "description": "Module config. `targets` is required. Common knobs: pool_mode, cooldown_min_sec / cooldown_max_sec, max_msgs_per_acc_per_hour, parallel_shards_count, uniquify_messages, scenario_snapshot."
+    }
+   },
+   "required": [
+    "account_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_parsing/",
+  "tag": "tools",
+  "summary": "Launch a parser. kind=channels|groups search by keywords; kind=users|messages|comments extract from given targets.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "description": "Accounts to run with. Must belong to the caller."
+    },
+    "kind": {
+     "type": "string",
+     "enum": [
+      "auto",
+      "channels",
+      "comments",
+      "groups",
+      "messages",
+      "users"
+     ],
+     "description": "What to parse."
+    },
+    "targets": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "Required for users/messages/comments — what to parse from."
+    },
+    "search_keywords": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "Required for groups (and for channels in search mode)."
+    },
+    "config": {
+     "type": "object",
+     "description": "Parser config. channels also takes `mode` (search|similar|parse) and `seed_links` for similar-mode. The result limit key differs per kind: channels/groups — results_limit; users — members_limit; messages — messages_limit; comments — posts_limit + comments_per_post. Other knobs: skip_bots, only_with_username, only_premium; messages/comments also days_filter, keywords. auto takes the messages keys plus posts_limit / comments_per_post for the channels in the list. Keys the kind's schema does not know are dropped and listed in the response's `ignored_keys` (or refused with strict_config)."
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    }
+   },
+   "required": [
+    "account_ids",
+    "kind"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_spam_pm/",
+  "tag": "tools",
+  "summary": "Launch the DM broadcaster: send a message chain to a target list. Requires send_mode and chain inside config.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "description": "Accounts to run with. Must belong to the caller."
+    },
+    "targets": {
+     "type": "array",
+     "items": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "object",
+        "properties": {
+         "peer": {
+          "type": "string"
+         },
+         "account_id": {
+          "type": "integer"
+         }
+        },
+        "required": [
+         "peer",
+         "account_id"
+        ]
+       }
+      ]
+     },
+     "description": "Raw target identifiers (@username, phone or id), or {peer, account_id} to pin a target to one of account_ids (the next message then goes from the same account into the same dialog). Unpinned strings are spread round-robin."
+    },
+    "chain": {
+     "type": "array",
+     "items": {
+      "type": "object"
+     },
+     "description": "Message items sent in order to each target. Shapes: {\"type\": \"text\", \"text\"}; {\"type\": \"photo\"|\"video\"|\"gif\"|\"voice\"|\"document\", \"media_url\", \"text\" (caption, optional)}; {\"type\": \"video_note\", \"media_url\"}; media_url is a public http(s) link or \"gg-media:<media_id>\" for a file uploaded via POST /api/v1/media/ (needed for voice and video_note); {\"type\": \"inline_bot\", \"post_id\"} sends a post with URL buttons via the GramGPT inline bot. post_id is the UUID of an Inline post saved in the panel (DM broadcaster, message type «Inline-пост»). Add \"bot_username\" (e.g. \"PostBot\" or the client's own bot) to send via a third-party inline bot instead: post_id is then the inline query, the first result is sent; {\"type\": \"forward\", \"post_link\"} forwards a channel/group post (t.me/<channel>/<id> or t.me/c/<id>/<id>) with the \"Forwarded from\" header — the account must see the source."
+    },
+    "send_mode": {
+     "type": "string",
+     "enum": [
+      "direct",
+      "trigger"
+     ],
+     "description": "direct — send the whole chain now; trigger — wait for a reply."
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    },
+    "config": {
+     "type": "object",
+     "description": "Module config. Required inside it: `send_mode` (direct|trigger) and `chain` (list of message items; or `chain_variants`). Knobs: work_mode, max_messages, concurrent_sends, greeting (trigger mode), min_delay_seconds / max_delay_seconds / unwarmed_pace_factor, accountProtectionEnabled / accountProtectionLevel, plus the schedule and daily-plan keys below. Waiting (schedule, daily plan, followups) is bounded by the task lifetime of 48 h; a multi-day campaign is relaunched daily.",
+     "properties": {
+      "accountProtectionEnabled": {
+       "type": "boolean",
+       "description": "Enable AI Account Protection (requires the paid module)."
+      },
+      "accountProtectionLevel": {
+       "type": "string",
+       "enum": [
+        "careful",
+        "balanced",
+        "aggressive"
+       ],
+       "description": "Protection level; defaults to balanced."
+      },
+      "min_delay_seconds": {
+       "type": "integer",
+       "description": "Min pause between targets, seconds (default 30)."
+      },
+      "max_delay_seconds": {
+       "type": "integer",
+       "description": "Max pause between targets, seconds (default 90)."
+      },
+      "unwarmed_pace_factor": {
+       "type": "number",
+       "description": "Auto-throttle for accounts younger than 14 days: the pause between targets is multiplied by this (default 2.0). Pass 1 to disable it and keep the delays exactly as given."
+      },
+      "start_at": {
+       "type": "string",
+       "description": "ISO-8601: the task waits until then before the first send."
+      },
+      "stop_at": {
+       "type": "string",
+       "description": "ISO-8601: no new targets after it; the task ends."
+      },
+      "active_hours_start": {
+       "type": "integer",
+       "description": "Working window start hour 0-23 (with active_hours_end)."
+      },
+      "active_hours_end": {
+       "type": "integer",
+       "description": "Working window end hour 1-24, exclusive; 22→6 = overnight."
+      },
+      "days_of_week": {
+       "type": "array",
+       "items": {
+        "type": "integer"
+       },
+       "description": "ISO weekdays to work on: 1=Mon … 7=Sun."
+      },
+      "timezone": {
+       "type": "string",
+       "description": "IANA timezone of the schedule and of the daily plan (default Europe/Moscow)."
+      },
+      "daily_limit_per_account": {
+       "type": "integer",
+       "description": "New targets per account per day. On reaching it the task waits for the next day instead of failing. Replies and followups don't count."
+      },
+      "daily_limit_total": {
+       "type": "integer",
+       "description": "New targets per day across all accounts of the task."
+      },
+      "ramp": {
+       "type": "object",
+       "description": "{start, step_per_day, max}: per-account daily limit = start + step_per_day × account age in days, capped by max."
+      },
+      "followups": {
+       "type": "array",
+       "items": {
+        "type": "object"
+       },
+       "description": "[{after_hours, if: \"no_reply\", chain}] — nudge those who did not reply, from the same account in the same dialog. after_hours counts from the previous touch, max 47."
+      },
+      "chain_variants": {
+       "type": "array",
+       "items": {
+        "type": "object"
+       },
+       "description": "[{weight, chain}] — A/B test: each target gets one weighted variant; its index (from 0) is in history.variant and in dm.received.variant."
+      },
+      "skip_already_messaged": {
+       "type": "boolean",
+       "description": "Skip targets any of your accounts already messaged (default true)."
+      },
+      "skip_contacted_days": {
+       "type": "integer",
+       "description": "Same dedup limited to the last N days."
+      },
+      "notify_on_reply": {
+       "type": "boolean",
+       "description": "Ping the owner in the GramGPT Telegram bot on a target's first reply."
+      }
+     }
+    }
+   },
+   "required": [
+    "account_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/launch_warming/",
+  "tag": "tools",
+  "summary": "Launch auto-warming module: accounts read dialogs / join channels / scroll feed to simulate organic activity.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1
+    },
+    "duration_minutes": {
+     "type": "integer",
+     "minimum": 5,
+     "maximum": 1440,
+     "default": 60
+    },
+    "channels_to_join": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "config": {
+     "type": "object",
+     "description": "Optional module tuning; extra module keys are accepted (see WarmingConfig). duration_minutes and channels_to_join are top-level inputs above. Pacing is derived from max_actions_per_day and the session length — there is no per-action delay knob (min_delay_seconds/max_delay_seconds are read by no warming code path and were dropped from this schema).",
+     "properties": {}
+    },
+    "dry_run": {
+     "type": "boolean",
+     "description": "Validate config, accounts and proxies without launching. Returns what would be dropped (ignored_keys) and which accounts are busy, dead or without a working proxy. Not billed."
+    },
+    "skip_unavailable": {
+     "type": "boolean",
+     "description": "Launch on the usable accounts only; the response lists the rest in `skipped` as {account_id, reason}. reason: busy | no_proxy | proxy_dead | status:<account status>."
+    },
+    "queue_if_busy": {
+     "type": "boolean",
+     "description": "If accounts are busy in other tasks, create the task with status `waiting` instead of a 409; it starts by itself once they are free (checked every minute, gives up after 24 h → status failed, stop_reason queue_timeout). cancel_task works on a waiting task."
+    },
+    "strict_config": {
+     "type": "boolean",
+     "description": "Refuse with 422 invalid_config when `config` has keys the module does not know (default: drop them and list in `ignored_keys`)."
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 64
+     },
+     "maxItems": 20,
+     "description": "Your labels for the task; filter with GET /tasks/?tag=."
+    },
+    "external_id": {
+     "type": "string",
+     "maxLength": 128,
+     "description": "Your own id for the task; filter with GET /tasks/?external_id=."
+    }
+   },
+   "required": [
+    "account_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/list_accounts/",
+  "tag": "tools",
+  "summary": "List your Telegram accounts. Accounts with pm_aggregation_enabled=True are not returned. Optionally filter by status.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "status": {
+     "type": "string"
+    },
+    "project": {
+     "type": [
+      "integer",
+      "string"
+     ],
+     "description": "Project id or exact name; \"none\" = no project."
+    },
+    "limit": {
+     "type": "integer",
+     "default": 50,
+     "minimum": 1,
+     "maximum": 200
+    }
+   },
+   "required": []
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/list_folders/",
+  "tag": "tools",
+  "summary": "List the account's Telegram chat folders in their current order (id, title, kind, peer count).",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    }
+   },
+   "required": [
+    "account_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/mark_account_dead/",
+  "tag": "tools",
+  "summary": "Mark account as dead. Status set to 'banned', 'deactivated', 'session_revoked', or 'frozen'.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "reason": {
+     "type": "string",
+     "enum": [
+      "banned",
+      "deactivated",
+      "session_revoked",
+      "frozen"
+     ],
+     "default": "banned"
+    },
+    "note": {
+     "type": "string",
+     "maxLength": 500
+    }
+   },
+   "required": [
+    "account_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/pause_task/",
+  "tag": "tools",
+  "summary": "Pause a running DM/group broadcast before its next target.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "task_id": {
+     "type": "string",
+     "description": "Task id from the launch response."
+    }
+   },
+   "required": [
+    "task_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/pick_healthy_accounts/",
+  "tag": "tools",
+  "summary": "Return up to N account_ids with status=valid, spamblock clear or unknown (not checked yet), pm_aggregation_enabled=False. MVP: oldest-first ordering.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "n": {
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 50,
+     "default": 5
+    },
+    "geo": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "n"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/read_inbox/",
+  "tag": "tools",
+  "summary": "Fetch latest DMs for `account_id` (up to `limit`, newest-first), or for up to 10 accounts at once via `account_ids`.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "maxItems": 10,
+     "uniqueItems": true
+    },
+    "limit": {
+     "type": "integer",
+     "default": 20,
+     "minimum": 1,
+     "maximum": 200
+    },
+    "unread_only": {
+     "type": "boolean",
+     "default": false
+    }
+   }
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/remove_targets/",
+  "tag": "tools",
+  "summary": "Remove targets from a running DM/group broadcast.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "task_id": {
+     "type": "string",
+     "description": "Task id from the launch response."
+    },
+    "targets": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "maxItems": 5000,
+     "description": "@username, phone, link or id — same forms as at launch."
+    }
+   },
+   "required": [
+    "task_id",
+    "targets"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/reply_in_dm/",
+  "tag": "tools",
+  "summary": "Send a Telegram DM from `account_id` to `peer`. Returns the sent message id. Optional `parse_mode`, `schedule_at` (Telegram scheduled send).",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone"
+    },
+    "text": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 4096
+    },
+    "reply_to_msg_id": {
+     "type": "integer"
+    },
+    "parse_mode": {
+     "type": "string",
+     "enum": [
+      "markdown",
+      "html",
+      "none"
+     ],
+     "description": "Text formatting. Omitted = markdown (as before)."
+    },
+    "schedule_at": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "Telegram scheduled send: ISO-8601 datetime (UTC if no offset) or unix seconds, up to 365 days ahead."
+    }
+   },
+   "required": [
+    "account_id",
+    "peer",
+    "text"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/resolve_links/",
+  "tag": "tools",
+  "summary": "Check up to 10 links / @usernames / invite links without joining: kind, title, members, open, comments, parsable.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "links": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "maxLength": 256
+     },
+     "minItems": 1,
+     "maxItems": 10
+    }
+   },
+   "required": [
+    "account_id",
+    "links"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/restore_accounts/",
+  "tag": "tools",
+  "summary": "Restore accounts from the trash (see delete_accounts); per-account result or reason.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "maxItems": 1000
+    }
+   },
+   "required": [
+    "account_ids"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/resume_task/",
+  "tag": "tools",
+  "summary": "Resume a task paused with pause_task.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "task_id": {
+     "type": "string",
+     "description": "Task id from the launch response."
+    }
+   },
+   "required": [
+    "task_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/send_media/",
+  "tag": "tools",
+  "summary": "Send a voice / video_note / photo / video / document from `media_id` (POST /media/) or an http(s) `url`. Use Idempotency-Key.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "kind": {
+     "type": "string",
+     "enum": [
+      "voice",
+      "video_note",
+      "photo",
+      "video",
+      "document"
+     ]
+    },
+    "media_id": {
+     "type": "string"
+    },
+    "url": {
+     "type": "string",
+     "maxLength": 2048
+    },
+    "caption": {
+     "type": "string",
+     "maxLength": 4096
+    },
+    "parse_mode": {
+     "type": "string",
+     "enum": [
+      "markdown",
+      "html",
+      "none"
+     ]
+    },
+    "reply_to_msg_id": {
+     "type": "integer"
+    }
+   },
+   "required": [
+    "account_id",
+    "peer",
+    "kind"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/send_reaction/",
+  "tag": "tools",
+  "summary": "Put an emoji reaction on a message in the DM; empty `emoji` removes it.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "message_id": {
+     "type": "integer"
+    },
+    "emoji": {
+     "type": "string",
+     "maxLength": 16
+    }
+   },
+   "required": [
+    "account_id",
+    "peer",
+    "message_id"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/send_typing/",
+  "tag": "tools",
+  "summary": "Show «typing…» / recording voice / video note to `peer` (~5 s; repeat while composing).",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "action": {
+     "type": "string",
+     "enum": [
+      "typing",
+      "record_voice",
+      "record_round",
+      "cancel"
+     ],
+     "default": "typing"
+    }
+   },
+   "required": [
+    "account_id",
+    "peer"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/set_account_project/",
+  "tag": "tools",
+  "summary": "Assign a panel project to accounts. `project` is a project id, a name (created if you have no project with that name yet), or null to detach. Projects: GET /projects/.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "maxItems": 1000
+    },
+    "project": {
+     "type": [
+      "integer",
+      "string",
+      "null"
+     ],
+     "description": "Project id, project name, or null to detach."
+    }
+   },
+   "required": [
+    "account_ids",
+    "project"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/set_account_role/",
+  "tag": "tools",
+  "summary": "Assign a panel role to accounts. `role` is a role id, a name (created if you have no role with that name yet), or null to detach. Roles: GET /roles/.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_ids": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 1,
+     "maxItems": 1000
+    },
+    "role": {
+     "type": [
+      "integer",
+      "string",
+      "null"
+     ],
+     "description": "Role id, role name, or null to detach."
+    }
+   },
+   "required": [
+    "account_ids",
+    "role"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/set_dialog_ai/",
+  "tag": "tools",
+  "summary": "Take one DM dialog away from NeuroDialogs AI (ai_enabled=false) or hand it back — the panel's ✦ button; a running task picks it up at once.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "peer_id, @username or phone"
+    },
+    "ai_enabled": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "account_id",
+    "peer",
+    "ai_enabled"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/set_dialog_flags/",
+  "tag": "tools",
+  "summary": "Set the DM pinned / unread / archived / muted.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "pinned": {
+     "type": "boolean"
+    },
+    "unread": {
+     "type": "boolean"
+    },
+    "archived": {
+     "type": "boolean"
+    },
+    "muted": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "account_id",
+    "peer"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/set_dialog_folder/",
+  "tag": "tools",
+  "summary": "Put the DM with `peer` into the folder `folder_name` (created if absent); `remove: true` takes it out.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "peer": {
+     "type": [
+      "string",
+      "integer"
+     ],
+     "description": "username, int telegram_id, or phone — as in reply_in_dm"
+    },
+    "folder_name": {
+     "type": "string",
+     "minLength": 1,
+     "maxLength": 12
+    },
+    "remove": {
+     "type": "boolean",
+     "default": false
+    }
+   },
+   "required": [
+    "account_id",
+    "peer",
+    "folder_name"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/set_folder_order/",
+  "tag": "tools",
+  "summary": "Reorder the account's folder tabs by name; first = leftmost. Use \"all_chats\" for the built-in tab.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "account_id": {
+     "type": "integer"
+    },
+    "folders": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1,
+     "description": "Folder titles in the wanted order; \"all_chats\" names the built-in All chats tab."
+    }
+   },
+   "required": [
+    "account_id",
+    "folders"
+   ]
+  }
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/tools/update_task/",
+  "tag": "tools",
+  "summary": "Change a running broadcast's chain, limits and delays without restarting it.",
+  "params": [
+   {
+    "name": "Idempotency-Key",
+    "in": "header",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": {
+   "type": "object",
+   "properties": {
+    "task_id": {
+     "type": "string",
+     "description": "Task id from the launch response."
+    },
+    "config": {
+     "type": "object",
+     "description": "Keys to change; same shapes as in the launch config."
+    }
+   },
+   "required": [
+    "task_id",
+    "config"
+   ]
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/webhooks/",
+  "tag": "webhooks",
+  "summary": "",
+  "params": [
+   {
+    "name": "ordering",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "page_size",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "search",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/webhooks/",
+  "tag": "webhooks",
+  "summary": "",
+  "params": [],
+  "body": {
+   "$ref": "#/components/schemas/_WebhookCreate"
+  }
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/webhooks/{id}/",
+  "tag": "webhooks",
+  "summary": "",
+  "params": [
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string",
+     "format": "uuid"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "PATCH",
+  "path": "/api/v1/webhooks/{id}/",
+  "tag": "webhooks",
+  "summary": "",
+  "params": [
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string",
+     "format": "uuid"
+    }
+   }
+  ],
+  "body": {
+   "$ref": "#/components/schemas/Patched_WebhookUpdate"
+  }
+ },
+ {
+  "method": "DELETE",
+  "path": "/api/v1/webhooks/{id}/",
+  "tag": "webhooks",
+  "summary": "",
+  "params": [
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string",
+     "format": "uuid"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "GET",
+  "path": "/api/v1/webhooks/{id}/deliveries/",
+  "tag": "webhooks",
+  "summary": "",
+  "params": [
+   {
+    "name": "failed",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "boolean"
+    }
+   },
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string",
+     "format": "uuid"
+    }
+   },
+   {
+    "name": "limit",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "ordering",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   },
+   {
+    "name": "page",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "page_size",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "integer"
+    }
+   },
+   {
+    "name": "search",
+    "in": "query",
+    "required": false,
+    "schema": {
+     "type": "string"
+    }
+   }
+  ],
+  "body": null
+ },
+ {
+  "method": "POST",
+  "path": "/api/v1/webhooks/{id}/deliveries/{delivery_id}/redeliver/",
+  "tag": "webhooks",
+  "summary": "",
+  "params": [
+   {
+    "name": "delivery_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string",
+     "pattern": "^\\d+$"
+    }
+   },
+   {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string",
+     "format": "uuid"
+    }
+   }
+  ],
+  "body": null
+ }
+]
