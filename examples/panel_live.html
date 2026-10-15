@@ -173,5 +173,9 @@ async function launch() {
   } catch(e) { $('err').textContent = e.message; }
 }
 if (TOK) connect();
+else fetch('/api/v1/demo-token').then(r=>r.json()).then(d=>{
+  if (d.token) { TOK=d.token; $('tokenbox').value=TOK; localStorage.setItem('gg_token',TOK); connect(); }
+  else $('err').textContent='demo-token empty';
+}).catch(e=>$('err').textContent='demo-token fetch: '+e);
 </script>
 </body></html>

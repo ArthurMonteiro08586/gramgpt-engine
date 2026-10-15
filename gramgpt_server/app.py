@@ -55,6 +55,9 @@ class Server:
         """Returns (status, json_body, content_type_or_None, bytes_or_None)."""
         if path == "/healthz":
             return 200, {"ok": True}, None, None
+        if path == "/api/v1/demo-token":
+            row = self.store.row("SELECT token FROM users ORDER BY id LIMIT 1")
+            return 200, {"token": row["token"] if row else ""}, None, None
         if path in ("/", "/panel", "/panel/"):
             if os.path.exists(PANEL_HTML):
                 return 200, None, "text/html; charset=utf-8", \
